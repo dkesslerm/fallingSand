@@ -3,11 +3,6 @@ import os
 import numpy as np
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
-def zerosGrid(width, height):
-    arr = [[0]*width]*height
-
-    return arr
-
 # Initialize Pygame
 pygame.init()
 clock = pygame.time.Clock()
@@ -26,15 +21,21 @@ pygame.display.set_caption("Falling Sand - David Kessler")
 grid = np.zeros((rows, cols))
 
 running = True
-cont = 0
+beingDragged = False
 while running:
     eventList = pygame.event.get()
     for event in eventList:
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
+        elif (event.type == pygame.MOUSEBUTTONDOWN):
+            beingDragged = True
+        elif (event.type == pygame.MOUSEBUTTONUP):
+            beingDragged = False
+
+        if (beingDragged):
             x,y = pygame.mouse.get_pos()
             grid[int(x/sandWidth)][int(y/sandWidth)] = 1
+
 
     for i in range(cols):
         for j in range(rows):
@@ -45,17 +46,22 @@ while running:
     auxGrid = np.zeros((rows, cols))
     for i in range(cols):
         for j in range(rows):
-            if (grid[i][j] == 1):
-                if (grid[i][j+1] == 0  and j < rows - 2):
+            if (grid[i][j] == 1 and j < rows - 1):
+                below = grid[i][j+1]
+                belowL = grid[i-1][j+1]
+                belowR = grid[i+1][j+1]
+
+                if (below == 0 ):
                     auxGrid[i][j+1] = 1
+                elif (belowL == 0):
+                    auxGrid[i-1][j] = 1
+                elif (belowR == 0):
+                    auxGrid[i+1][j] = 1
                 else:
                     auxGrid[i][j] = 1
-            elif (j== rows-1):
-                pygame.draw.rect(window, GREEN, (i*sandWidth, j*sandWidth, sandWidth, sandWidth))
-                pygame.draw.rect(window, GREY,(i*sandWidth, j*sandWidth, sandWidth , sandWidth), 1)
+            elif (grid[i][j] == 1 and j == rows - 1):
+                auxGrid[i][j] = 1
 
-            
-            
     grid = auxGrid
 
     clock.tick(30)
