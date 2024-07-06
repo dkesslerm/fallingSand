@@ -8,6 +8,8 @@ GREY = (120, 120, 120) # rgb value
 SAND_WIDTH = 10 # the width of each "grain" of sand
 WIDTH = 800
 HEIGHT = 800 # these will be our window dimensions
+MAX_FPS = 120
+MIN_FPS = 30
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 pygame.init()
 
@@ -19,8 +21,10 @@ pygame.display.set_caption("Falling Sand - David Kessler")
 clock = pygame.time.Clock()
 rows = int(WIDTH/SAND_WIDTH)
 cols = int(HEIGHT/SAND_WIDTH)
+fps = 60 # default fps value
 running = True
 being_dragged = False
+paused = False
 grid = np.zeros((rows, cols)) # a matrix that is directly initialized to have all its values equal to 0
 
 while running:
@@ -30,9 +34,22 @@ while running:
     for event in event_list:
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.K_DOWN:
+        elif event.type == pygame.KEYDOWN:
             if (event.key == pygame.K_ESCAPE):
                 running = False # we can also quit by pressing the scape key, just a little optimization
+                break
+            elif (event.key == pygame.K_p):
+                paused = True
+            elif (event.key == pygame.K_r):
+                paused = False
+            elif (event.key == pygame.K_DOWN):
+                fps = fps - 5
+                if fps < MIN_FPS:
+                    fps = MIN_FPS
+            elif (event.key == pygame.K_UP):
+                fps = fps + 5
+                if fps > MAX_FPS:
+                    fps = MAX_FPS
         elif (event.type == pygame.MOUSEBUTTONDOWN):
             being_dragged = True
         elif (event.type == pygame.MOUSEBUTTONUP):
@@ -67,33 +84,34 @@ while running:
     aux_grid = np.zeros((rows, cols)) # auxiliar grid used to reflect the changes from one iteration to other
 
     # movement of the grains of sand
-    for i in range(cols):
-        for j in range(rows):
-            if (grid[i][j] == 1):
-                if (j < rows - 1): # just checking it's not the last row 
-                    below = grid[i][j+1]
-                    dir = random.choice([-1, 1]) # some kind of randomness to falling left or right
-                    below_l = -1
-                    below_r = -1
-                    if (i-dir >= 0 and i-dir < cols-1):
-                        below_l = grid[i-dir][j+1]
-                    if (i+dir >= 0 and i+dir < cols-1):
-                        below_r = grid[i+dir][j+1]
+    if (not paused):
+        for i in range(cols):
+            for j in range(rows):
+                if (grid[i][j] == 1):
+                    if (j < rows - 1): # just checking it's not the last row 
+                        below = grid[i][j+1]
+                        dir = random.choice([-1, 1]) # some kind of randomness to falling left or right
+                        below_l = -1
+                        below_r = -1
+                        if (i-dir >= 0 and i-dir <= cols-1):
+                            below_l = grid[i-dir][j+1]
+                        if (i+dir >= 0 and i+dir <= cols-1):
+                            below_r = grid[i+dir][j+1]
 
-                    if (below == 0):
-                        aux_grid[i][j+1] = 1 # make them fall
-                    elif (below_l == 0):
-                        aux_grid[i-dir][j] = 1 # changeable for aux_grid[i-dir][j+1] = 1 to give it some sort of "slide" effect
-                    elif (below_r == 0):
-                        aux_grid[i+dir][j] = 1 # i prefer it like this though, it makes the grains of sand "bounce"
-                    else:
-                        aux_grid[i][j] = 1 # make them stack on each other
-                elif (j == rows - 1): # if it's the last row, no need to check below
-                    aux_grid[i][j] = 1
+                        if (below == 0):
+                            aux_grid[i][j+1] = 1 # make them fall
+                        elif (below_l == 0):
+                            aux_grid[i-dir][j] = 1 # changeable for aux_grid[i-dir][j+1] = 1 to give it some sort of "slide" effect
+                        elif (below_r == 0):
+                            aux_grid[i+dir][j] = 1 # i prefer it like this though, it makes the grains of sand "bounce"
+                        else:
+                            aux_grid[i][j] = 1 # make them stack on each other
+                    elif (j == rows - 1): # if it's the last row, no need to check below
+                        aux_grid[i][j] = 1
 
-    grid = aux_grid
+        grid = aux_grid
 
-    clock.tick(60)
+    clock.tick(fps)
     pygame.display.update()
 
 pygame.quit()
