@@ -5,14 +5,16 @@ This project simulates falling sand using Python. Users can interact with the si
 ## Demo
 
 *Normal run of the simulation*
+
 ![Falling Sand Simulation](assets/normal-run.gif)
 
 *Pause and resume functionality*
+
 ![User Interactions](assets/pause-resume.gif)
 
 ## Features
 
-- Simulates falling sand, and the interaction between the individual grains. 
+- Simulates falling sand, and the interaction between the individual grains
 - Click to add more sand
 - Pause and resume functionality
 - Adjust FPS during runtime
@@ -77,6 +79,4 @@ Original inspiration: [Coding "Falling Sand" in JavaScript](https://www.youtube.
 
 ## Contact
 
-For any questions or feedback, please reach out via email:
-
-dkesslerm@gmail.com
+For any questions or feedback, please file an issue on GitHub.
