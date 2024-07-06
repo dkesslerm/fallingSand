@@ -4,9 +4,10 @@ This project simulates falling sand using Python. Users can interact with the si
 
 ## Demo
 
+*Normal run of the simulation*
 ![Falling Sand Simulation](assets/normal-run.gif)
 
-
+*Pause and resume functionality*
 ![User Interactions](assets/pause-resume.gif)
 
 ## Features
@@ -42,18 +43,18 @@ The simulation starts with a default FPS limit of 60. You can adjust this during
 
 ## Controls
 
-- Left mouse click: Add sand
-- P: Pause the simulation
-- R: Resume the simulation
-- ESC: Quit the application
-- Up Arrow: Increase FPS limit
-- Down Arrow: Decrease FPS limit
+- **Left mouse click**: Add sand
+- **P**: Pause the simulation
+- **R**: Resume the simulation
+- **ESC**: Quit the application
+- **Up Arrow**: Increase FPS limit
+- **Down Arrow**: Decrease FPS limit
 
 ## FPS Limiting
 
-- Default: 60 FPS
-- Minimum: 30 FPS
-- Maximum: 120 FPS
+- **Default**: 60 FPS
+- **Minimum**: 30 FPS
+- **Maximum**: 120 FPS
 
 Adjusting the FPS can help balance between smooth animation and performance on different systems.
 
