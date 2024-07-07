@@ -1,6 +1,9 @@
 # Falling Sand in Python
 
-This project simulates falling sand using Python. Users can interact with the simulation by adding sand with mouse clicks and controlling the simulation flow.
+This project simulates falling sand using Python. Users can interact with the simulation by adding sand with mouse clicks and controlling the simulation flow. 
+
+## Motivation 
+I wanted to do this project as I wanted something simple but engaging to do in a few days, and I came to the conclusion that Python was perfect for this as it more than enough support for a project like this one
 
 ## Demo
 
