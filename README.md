@@ -3,7 +3,8 @@
 This project simulates falling sand using Python. Users can interact with the simulation by adding sand with mouse clicks and controlling the simulation flow. 
 
 ## Motivation 
-I wanted to do this project as I wanted something simple but engaging to do in a few days, and I came to the conclusion that Python was perfect for this as it more than enough support for a project like this one
+
+I wanted to do this project as I wanted something simple but engaging to do in a few days, that also allowed me to get more familiar with Python (as a CS student I feel like I should have a solid background on this). I came across this CodingTrain youtube video, [Coding "Falling Sand" in JavaScript](https://www.youtube.com/watch?v=L4u7Zy_b868), and I started to think about how I could migrate his code to Python. After a few days, this is what I came up with. The main difference is, of course, that Daniel's code is written in JavaScript, but my code also has some extra features as the pause and resume functionality, or adjusting FPS during runtime. I have enjoyed the challenge and the learning alltogether, looking forward to the next one. 
 
 ## Demo
 
@@ -73,12 +74,6 @@ While there are no concrete plans for future development, potential improvements
 ## License
 
 This project is open source and available for any use.
-
-## Inspiration
-
-This project is inspired by a YouTube video tutorial on creating a falling sand simulation in JavaScript. The key difference is that this implementation uses Python instead of JavaScript.
-
-Original inspiration: [Coding "Falling Sand" in JavaScript](https://www.youtube.com/watch?v=L4u7Zy_b868)
 
 ## Contact
 
